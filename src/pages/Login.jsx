@@ -12,6 +12,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Axios from "axios";
 
 function Copyright(props) {
   return (
@@ -37,11 +38,29 @@ export default function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const user = {
       email: data.get("email"),
       password: data.get("password"),
+    };
+    console.log(user);
+    Axios({
+      method: "POST",
+      data: user,
+      withCredentials: true,
+      url: "http://localhost:4000/user/login",
+    }).then((res) => {
+      console.log(res);
     });
   };
+  function getStatus() {
+    Axios({
+      method: "GET",
+      withCredentials: true,
+      url: "http://localhost:4000/homepage",
+    }).then((res) => {
+      console.log(res);
+    });
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -98,6 +117,14 @@ export default function Login() {
               sx={{ mt: 3, mb: 2 }}
             >
               Sign In
+            </Button>
+            <Button
+              onClick={getStatus}
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Check Status
             </Button>
             <Grid container>
               <Grid item xs>
