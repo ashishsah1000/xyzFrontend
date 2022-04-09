@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import { Login, Signup } from "./pages";
+import { Login, Signup, Logout } from "./pages";
 
 function App() {
   return (
@@ -8,6 +8,7 @@ function App() {
       {/* declare all the routes */}
       <Routes>
         <Route exact path="/login" element={<Login />} />
+        <Route exact path="/logout" element={<Logout />} />
         <Route exact path="/signup" element={<Signup />} />
       </Routes>
       {/* <Login /> */}
