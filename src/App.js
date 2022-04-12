@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import { Login, Signup, Logout } from "./pages";
+import { Login, Signup, Logout, Inventory } from "./pages";
 
 function App() {
   return (
@@ -10,6 +10,7 @@ function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/logout" element={<Logout />} />
         <Route exact path="/signup" element={<Signup />} />
+        <Route exact path="/inventory" element={<Inventory />} />
       </Routes>
       {/* <Login /> */}
     </div>
