@@ -1,9 +1,14 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { login, logout } from "../features/user/userSlice";
+import { deleteUser } from "../setStorage/localUser";
 
 export default function Logout() {
   const [status, setstatus] = useState("Logging You Out");
+  const dispatch = useDispatch();
+
   axios({
     method: "POST",
     withCredentials: true,
@@ -11,6 +16,8 @@ export default function Logout() {
   }).then((res) => {
     console.log(res);
     setstatus(res.data);
+    deleteUser();
+    dispatch(logout);
   });
 
   useEffect(() => {});

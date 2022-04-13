@@ -14,6 +14,9 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Axios from "axios";
 
+import { useSelector, useDispatch } from "react-redux";
+import { login, logout } from "../features/user/userSlice";
+
 function Copyright(props) {
   return (
     <Typography
@@ -35,6 +38,10 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Login() {
+  // these are related to redux store for state purpose
+  const userAuth = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -50,6 +57,7 @@ export default function Login() {
       url: "http://localhost:4000/user/login",
     }).then((res) => {
       console.log(res);
+      dispatch(login(res.data));
     });
   };
   function getStatus() {
