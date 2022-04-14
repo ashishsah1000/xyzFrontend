@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import { Login, Signup, Logout, Inventory } from "./pages";
+import { Login, Signup, Logout, Inventory, Homepage } from "./pages";
 import { useSelector, useDispatch } from "react-redux";
 import { login, logout } from "./features/user/userSlice";
 import { useEffect, useState } from "react";
@@ -25,7 +25,7 @@ function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/logout" element={<Logout />} />
         <Route exact path="/signup" element={<Signup />} />
-        <Route exact path="/inventory" element={<Inventory />} />
+        <Route exact path="/homepage" element={<Homepage />} />
       </Routes>
       {/* <Login /> */}
     </div>
