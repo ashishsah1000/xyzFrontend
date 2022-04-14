@@ -5,3 +5,5 @@ export { default as Homepage } from "./Homepage";
 // exports for the items folder
 
 export { default as Inventory } from "./items/Inventory";
+export { default as Billing } from "./items/Billing";
+export { default as History } from "./items/History";

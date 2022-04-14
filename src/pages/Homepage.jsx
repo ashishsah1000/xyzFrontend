@@ -1,11 +1,11 @@
 import React from "react";
 import Layout from "../components/Layout";
-import Inventory from "./items/Inventory";
+import { Route, Routes } from "react-router-dom";
 
-export default function Homepage() {
+export default function Homepage({ element }) {
   return (
     <div>
-      <Layout midElement={<Inventory />} />
+      <Layout midElement={element} />
     </div>
   );
 }

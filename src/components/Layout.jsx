@@ -1,4 +1,5 @@
-import * as React from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
@@ -139,130 +140,140 @@ export default function Layout({ midElement = <h1>this is middle props</h1> }) {
         </DrawerHeader>
         <Divider />
         <List>
-          <ListItemButton
-            key="CreateBillsRupeeIcon"
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? "initial" : "center",
-              px: 2.5,
-            }}
-          >
-            <ListItemIcon
+          <Link to="/billing">
+            <ListItemButton
+              key="CreateBillsRupeeIcon"
               sx={{
-                minWidth: 0,
-                mr: open ? 3 : "auto",
-                justifyContent: "center",
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
               }}
             >
-              <CurrencyRupeeIcon />
-            </ListItemIcon>
-            {open ? <ListItemText primary="Billing" /> : ""}
-          </ListItemButton>
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                <CurrencyRupeeIcon />
+              </ListItemIcon>
+              {open ? <ListItemText primary="Billing" /> : ""}
+            </ListItemButton>
+          </Link>
           {/* for inventory */}
-          <ListItemButton
-            key="CreateBillsRupeeIcon"
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? "initial" : "center",
-              px: 2.5,
-            }}
-          >
-            <ListItemIcon
+          <Link to="/inventory">
+            <ListItemButton
+              key="CreateInventory"
               sx={{
-                minWidth: 0,
-                mr: open ? 3 : "auto",
-                justifyContent: "center",
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
               }}
             >
-              <InventoryIcon />
-            </ListItemIcon>
-            {open ? <ListItemText primary="Inventory" /> : ""}
-          </ListItemButton>
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                <InventoryIcon />
+              </ListItemIcon>
+              {open ? <ListItemText primary="Inventory" /> : ""}
+            </ListItemButton>
+          </Link>
           {/* for history of transactions */}
-          <ListItemButton
-            key="CreateBillsRupeeIcon"
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? "initial" : "center",
-              px: 2.5,
-            }}
-          >
-            <ListItemIcon
+          <Link to="/history">
+            <ListItemButton
+              key="transactions"
               sx={{
-                minWidth: 0,
-                mr: open ? 3 : "auto",
-                justifyContent: "center",
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
               }}
             >
-              <HistoryEduIcon />
-            </ListItemIcon>
-            {open ? <ListItemText primary="History" /> : ""}
-          </ListItemButton>
-
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                <HistoryEduIcon />
+              </ListItemIcon>
+              {open ? <ListItemText primary="History" /> : ""}
+            </ListItemButton>
+          </Link>
           {/* for payments recived  */}
-          <ListItemButton
-            key="CreateBillsRupeeIcon"
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? "initial" : "center",
-              px: 2.5,
-            }}
-          >
-            <ListItemIcon
+          <Link to="/payments">
+            <ListItemButton
+              key="Payments"
               sx={{
-                minWidth: 0,
-                mr: open ? 3 : "auto",
-                justifyContent: "center",
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
               }}
             >
-              <PaymentsIcon />
-            </ListItemIcon>
-            {open ? <ListItemText primary="Payments" /> : ""}
-          </ListItemButton>
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                <PaymentsIcon />
+              </ListItemIcon>
+              {open ? <ListItemText primary="Payments" /> : ""}
+            </ListItemButton>
+          </Link>
         </List>
         <Divider />
         <List>
           {/* for analysis */}
-          <ListItemButton
-            key="CreateBillsRupeeIcon"
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? "initial" : "center",
-              px: 2.5,
-            }}
-          >
-            <ListItemIcon
+          <Link to="/payments">
+            <ListItemButton
+              key="analysis"
               sx={{
-                minWidth: 0,
-                mr: open ? 3 : "auto",
-                justifyContent: "center",
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
               }}
             >
-              <AssessmentIcon />
-            </ListItemIcon>
-            {open ? <ListItemText primary="Analysis" /> : ""}
-          </ListItemButton>
-
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                <AssessmentIcon />
+              </ListItemIcon>
+              {open ? <ListItemText primary="Analysis" /> : ""}
+            </ListItemButton>
+          </Link>
           {/* for setting of profile  */}
-          <ListItemButton
-            key="CreateBillsRupeeIcon"
-            sx={{
-              minHeight: 48,
-              justifyContent: open ? "initial" : "center",
-              px: 2.5,
-            }}
-          >
-            <ListItemIcon
+          <Link to="/settings">
+            <ListItemButton
+              key="profileSettings"
               sx={{
-                minWidth: 0,
-                mr: open ? 3 : "auto",
-                justifyContent: "center",
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
               }}
             >
-              <AppSettingsAltIcon />
-            </ListItemIcon>
-            {open ? <ListItemText primary="Settings" /> : ""}
-          </ListItemButton>
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                <AppSettingsAltIcon />
+              </ListItemIcon>
+              {open ? <ListItemText primary="Settings" /> : ""}
+            </ListItemButton>
+          </Link>
         </List>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
