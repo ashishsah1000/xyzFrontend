@@ -279,10 +279,7 @@ export default function Layout({ midElement = <h1>this is middle props</h1> }) {
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         {midElement}
-        <Typography paragraph>
-          This is a typography of paragraphs. We will render our content
-          elements here
-        </Typography>
+        <Typography paragraph></Typography>
       </Box>
     </Box>
   );

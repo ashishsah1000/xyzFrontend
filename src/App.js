@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { getUser } from "./setStorage/localUser";
 
 function App() {
+  const [first, setfirst] = useState("second");
   const user = useSelector((state) => state.auth);
   console.log(getUser());
   let navigate = useNavigate();
