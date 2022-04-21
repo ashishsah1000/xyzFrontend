@@ -9,11 +9,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { getAllItems } from "../../../Axios/items";
+
 import { SearchRounded, EditRounded } from "@mui/icons-material";
 import { DeleteOutlineRounded } from "@mui/icons-material";
-import { RefreshOutlined } from "@mui/icons-material";
 import moment from "moment";
+import { useSelector } from "react-redux";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -35,51 +35,24 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function ItemsTables() {
+export default function ItemsTables({items}) {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState([]);
   const [refresh, setRefresh] = useState(false);
   let rerenderElemet = true;
 
-  // getAllItems().then((res) => {
-  //   console.log("got data", res);
-  //   setData(res);
-  // });
-  async function fetchData() {
-    setRefresh(true);
-    let items = await getAllItems();
-    console.log("data here", items);
-    let rarrayData = items.items.reverse();
-    // setData(items.items);
-    setData(rarrayData);
-    setRefresh(false);
-  }
+  
   useEffect(() => {
-    let items = [];
+    setData(items);
 
-    fetchData();
+    
   }, [rerenderElemet]);
   if (data.length == 0) return "loading data";
 
   return (
     <>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <Box style={{ marginTop: "10px" }}>
-          <LoadingButton
-            variant="contained"
-            onClick={fetchData}
-            endIcon={<RefreshOutlined />}
-            loading={refresh}
-            loadingPosition="end"
-            variant="contained"
-          >
-            Refresh
-          </LoadingButton>
-          &nbsp;
-          <Button color="warning" variant="contained" onClick={fetchData}>
-            Add Items
-          </Button>
-        </Box>
+        
 
         <Box
           sx={{
@@ -135,7 +108,7 @@ export default function ItemsTables() {
                 }
               })
               .map((row, i) => (
-                <StyledTableRow key={row.name}>
+                <StyledTableRow key={i+1}>
                   <StyledTableCell component="th" scope="row">
                     {i + 1}
                   </StyledTableCell>

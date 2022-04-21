@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import { getUser } from "../../setStorage/localUser";
 
-export default function CreateItem() {
+export default function CreateItem({fetchData}) {
   const [ItemName, setItemName] = useState("This is normal Text");
   const [ItemId, setItemId] = useState("This is normal Text of ID");
   const [price, setPrice] = useState(0);
@@ -29,7 +29,8 @@ export default function CreateItem() {
       data: item,
       withCredentials: true,
       url: "http://localhost:4000/items/createProduct",
-    }).then((res) => console.log(res));
+    }).then((res) => {console.log(res);
+    fetchData()});
   };
 
   return (
