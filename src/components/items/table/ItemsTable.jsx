@@ -15,6 +15,8 @@ import { DeleteOutlineRounded } from "@mui/icons-material";
 import moment from "moment";
 import { useSelector } from "react-redux";
 
+import { removeProduct } from "../../../Axios/items";
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -40,6 +42,12 @@ export default function ItemsTables({items}) {
   const [search, setSearch] = useState([]);
   const [refresh, setRefresh] = useState(false);
   let rerenderElemet = true;
+
+  // delete item function 
+  const removeItem = async (id)=>{
+    await removeProduct({"_id":id});
+    console.log("product was removed");
+  }
 
   
   useEffect(() => {
@@ -129,7 +137,7 @@ export default function ItemsTables({items}) {
                     <IconButton color="primary" aria-label="add an alarm">
                       <EditRounded />
                     </IconButton>
-                    <IconButton color="secondary" aria-label="add an alarm">
+                    <IconButton color="secondary" aria-label="add an alarm"  onClick={()=>removeItem(row._id)}>
                       <DeleteOutlineRounded />
                     </IconButton>
                   </StyledTableCell>
