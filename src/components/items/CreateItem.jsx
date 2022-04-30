@@ -1,5 +1,5 @@
 import { TextField, Button, Typography } from "@mui/material";
-import { Box, Container, Grid,Stack,Snackbar } from "@mui/material";
+import { Box, Container, Grid, Stack, Snackbar } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import { getUser } from "../../setStorage/localUser";
@@ -11,20 +11,19 @@ import { getUser } from "../../setStorage/localUser";
 
 export default function CreateItem({ fetchData }) {
   // for the mui snackbar
-  const [snackSuccess,setSnackSuccess] = useState({
-    open:false,
-    vertical:'top',
-    horizontal:'center'
+  const [snackSuccess, setSnackSuccess] = useState({
+    open: false,
+    vertical: "top",
+    horizontal: "center",
   });
-  
-  const {vertical,horizontal,open}= snackSuccess;
-  const handleClick = (newState) =>()=>{
-    setSnackSuccess({open:true,...newState});
-  }
-  const handleClose = () =>{
-    setSnackSuccess({...snackSuccess,open:false});
 
-  }
+  const { vertical, horizontal, open } = snackSuccess;
+  const handleClick = (newState) => () => {
+    setSnackSuccess({ open: true, ...newState });
+  };
+  const handleClose = () => {
+    setSnackSuccess({ ...snackSuccess, open: false });
+  };
 
   //  the form section data for each input
   const [ItemName, setItemName] = useState("This is normal Text");
@@ -36,14 +35,20 @@ export default function CreateItem({ fetchData }) {
     let dataLocal = getUser();
     console.log(dataLocal);
     const item = {
-      username: dataLocal.payload.username,
-      items: [
-        {
-          itemName: ItemName,
-          itemCode: ItemId,
-          price: price,
-        },
-      ],
+      // username: dataLocal.payload.username,
+      // items: [
+      //   {
+      //     itemName: ItemName,
+      //     itemCode: ItemId,
+      //     price: price,
+      //   },
+      // ],
+      user_id: dataLocal.payload.id,
+      item: {
+        itemName: ItemName,
+        itemCode: ItemId,
+        price: price,
+      },
     };
     console.log(item);
     Axios({
@@ -53,16 +58,21 @@ export default function CreateItem({ fetchData }) {
       url: "http://localhost:4000/items/createProduct",
     }).then((res) => {
       console.log(res.data);
-     
+
       fetchData();
-      setSnackSuccess({open:true}); // for the snackbar
+      setSnackSuccess({ open: true }); // for the snackbar
     });
   };
 
   return (
     <div>
-      <Snackbar style={{background:"green",color:"white"}} open={open} autoHideDuration={2000} onClose={handleClose} message="Success added the input">
-      </Snackbar>
+      <Snackbar
+        style={{ background: "green", color: "white" }}
+        open={open}
+        autoHideDuration={2000}
+        onClose={handleClose}
+        message="Success added the input"
+      ></Snackbar>
       <Box>
         <Typography variant="h5">Add items to store</Typography>
         <br />
@@ -90,6 +100,7 @@ export default function CreateItem({ fetchData }) {
           </Grid>
           <Grid item xs={12}>
             <TextField
+              defaultValue="100"
               onChange={(e) => {
                 setPrice(e.target.value);
               }}
@@ -110,7 +121,6 @@ export default function CreateItem({ fetchData }) {
           </Grid>
         </Grid>
       </Box>
-      
     </div>
   );
 }

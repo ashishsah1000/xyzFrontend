@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Button, TextField, Box, IconButton } from "@mui/material";
+import { Button, TextField, Box, IconButton, Input } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -37,31 +37,29 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function ItemsTables({items}) {
+export default function ItemsTables({ items }) {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState([]);
-  const [refresh, setRefresh] = useState(false);
+  const [edit, setEdit] = useState(false);
   let rerenderElemet = true;
 
-  // delete item function 
-  const removeItem = async (id)=>{
-    await removeProduct({"_id":id});
+  // delete item function
+  const removeItem = async (id) => {
+    // does a calll from api
+    await removeProduct({ _id: id });
     console.log("product was removed");
-  }
+  };
 
-  
+  // when edit mode is on show input with data else use text
+
   useEffect(() => {
     setData(items);
-
-    
   }, [rerenderElemet]);
   if (data.length == 0) return "loading data";
 
   return (
     <>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        
-
         <Box
           sx={{
             display: "flex",
@@ -105,44 +103,55 @@ export default function ItemsTables({items}) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data
-              ?.filter((val) => {
-                if (search.length == 0) return val;
-                else if (
-                  val.itemName.toLowerCase().includes(search.toLowerCase()) ||
-                  val.itemCode.toLowerCase().includes(search.toLowerCase())
-                ) {
-                  return val;
-                }
-              })
-              .map((row, i) => (
-                <StyledTableRow key={i+1}>
-                  <StyledTableCell component="th" scope="row">
-                    {i + 1}
-                  </StyledTableCell>
-                  <StyledTableCell component="th" scope="row">
-                    {row.itemCode}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.itemName}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">{row.price}</StyledTableCell>
-                  <StyledTableCell align="right">
-                    {moment(
-                      row.createdOn.split("T")[0].split("-").join(""),
-                      "YYYYMMDD"
-                    ).fromNow()}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    <IconButton color="primary" aria-label="add an alarm">
-                      <EditRounded />
-                    </IconButton>
-                    <IconButton color="secondary" aria-label="add an alarm"  onClick={()=>removeItem(row._id)}>
-                      <DeleteOutlineRounded />
-                    </IconButton>
-                  </StyledTableCell>
-                </StyledTableRow>
-              ))}
+            {!!data &&
+              data.length > 0 &&
+              data
+                ?.filter((val) => {
+                  if (search.length == 0) return val;
+                  else if (
+                    val.itemName.toLowerCase().includes(search.toLowerCase()) ||
+                    val.itemCode.toLowerCase().includes(search.toLowerCase())
+                  ) {
+                    return val;
+                  }
+                })
+                .map((row, i) => (
+                  <StyledTableRow key={i + 1}>
+                    <StyledTableCell component="th" scope="row">
+                      {i + 1}
+                    </StyledTableCell>
+                    <StyledTableCell component="th" scope="row">
+                      {/* {!edit?} */}
+                      {row.itemCode}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {row.itemName}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      <b>Rs {row.price}</b>
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      {moment(
+                        row.createdOn.split("T")[0].split("-").join(""),
+                        "YYYYMMDD"
+                      ).fromNow()}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      <IconButton color="primary" aria-label="add an alarm">
+                        <EditRounded />
+                      </IconButton>
+                      <IconButton
+                        color="secondary"
+                        aria-label="add an alarm"
+                        onClick={() => {
+                          removeItem(row._id);
+                        }}
+                      >
+                        <DeleteOutlineRounded />
+                      </IconButton>
+                    </StyledTableCell>
+                  </StyledTableRow>
+                ))}
           </TableBody>
         </Table>
       </TableContainer>
