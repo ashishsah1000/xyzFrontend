@@ -5,8 +5,8 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { RefreshOutlined } from "@mui/icons-material";
 import { CreateItem, ItemsTable, EditItem } from "../../components/items";
 
-import { storeItems } from "../../features/items/itemsSlice";
-import { getAllItems } from "../../Axios/items";
+import { storeItems } from "../../features/items/itemsSlice"; //redux action to store items
+import { getAllItems } from "../../Axios/items"; //axios function to getAll the items
 import { useDispatch, useSelector } from "react-redux";
 import { Fade } from "@mui/material";
 import { checkLoggedIn } from "../../Axios/user";
@@ -34,7 +34,12 @@ export default function Inventory() {
   const handleClose = () => setOpen(false);
   // opening for adding updating modal
   const [openUpdate, setOpenUpdate] = React.useState(false);
-  const handleOpenUpdate = () => setOpenUpdate(true);
+  const handleOpenUpdate = () => {
+    // seteditId(useSelector((state) => state.items.selected.payload._id));
+    // seteditName(useSelector((state) => state.items.selected.payload.name));
+
+    setOpenUpdate(true);
+  };
   const handleCloseUpdate = () => setOpenUpdate(false);
 
   //  table key is used to refresh everytime new item is added
@@ -45,15 +50,17 @@ export default function Inventory() {
   const [controlAddItems, setcontrolAddItems] = useState(false);
   const dispatch = useDispatch(); //redux
 
-  // edit item - get all the information and then call the ui element
-  const [editId, seteditId] = useState(0);
-  const [editName, seteditName] = useState("");
-  const [editPrice, seteditPrice] = useState(100);
-  function editData({ id, name, price }) {
-    seteditId(id);
-    seteditName(name);
-    seteditPrice(price);
-  }
+  // edit item - get all the information uses redux store
+  const storeEditId = useSelector((state) => state.items.selected.payload._id);
+  const storeEditItemCode = useSelector(
+    (state) => state.items.selected.payload.code
+  );
+  const storeEditItemName = useSelector(
+    (state) => state.items.selected.payload.name
+  );
+  const storeEditItemPrice = useSelector(
+    (state) => state.items.selected.payload.price
+  );
 
   // get the data in this function
   const bgStyle = {
@@ -132,7 +139,11 @@ export default function Inventory() {
                   </div>
                 </div>
               ) : (
-                <ItemsTable key={tableKey} items={items} />
+                <ItemsTable
+                  key={tableKey}
+                  items={items}
+                  handleOpenUpdate={handleOpenUpdate}
+                />
               )}
             </div>
           </Grid>
@@ -163,7 +174,12 @@ export default function Inventory() {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <EditItem name={editName} id={editId} price={editPrice} />
+            <EditItem
+              name={storeEditItemName}
+              id={storeEditItemCode}
+              price={storeEditItemPrice}
+              _id={storeEditId}
+            />
           </Box>
         </Modal>
       </div>

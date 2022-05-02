@@ -13,7 +13,8 @@ import Paper from "@mui/material/Paper";
 import { SearchRounded, EditRounded } from "@mui/icons-material";
 import { DeleteOutlineRounded } from "@mui/icons-material";
 import moment from "moment";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { selectedItems } from "../../../features/items/itemsSlice"; //redux action to slecte items
 
 import { removeProduct } from "../../../Axios/items";
 
@@ -37,12 +38,14 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function ItemsTables({ items }) {
+export default function ItemsTables({ items, handleOpenUpdate }) {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState([]);
   const [edit, setEdit] = useState(false);
   let rerenderElemet = true;
 
+  // set up the redux dispatch
+  const dispatch = useDispatch();
   // delete item function
   const removeItem = async (id) => {
     // does a calll from api
@@ -50,9 +53,23 @@ export default function ItemsTables({ items }) {
     console.log("product was removed");
   };
 
+  // handleEdit function
+  const handleEdit = (_id, itemCode, name, price) => {
+    // get clicked item details  }
+    const selectedItem = {
+      _id: _id,
+      code: itemCode,
+      name: name,
+      price: price,
+    };
+    dispatch(selectedItems(selectedItem));
+    handleOpenUpdate();
+  };
+
   // when edit mode is on show input with data else use text
 
   useEffect(() => {
+    console.log(items);
     setData(items);
   }, [rerenderElemet]);
   if (data.length == 0) return "loading data";
@@ -137,7 +154,18 @@ export default function ItemsTables({ items }) {
                       ).fromNow()}
                     </StyledTableCell>
                     <StyledTableCell align="right">
-                      <IconButton color="primary" aria-label="add an alarm">
+                      <IconButton
+                        color="primary"
+                        aria-label="add an alarm"
+                        onClick={() =>
+                          handleEdit(
+                            row._id,
+                            row.itemCode,
+                            row.itemName,
+                            row.price
+                          )
+                        }
+                      >
                         <EditRounded />
                       </IconButton>
                       <IconButton

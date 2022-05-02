@@ -1,22 +1,48 @@
 import React, { useState } from "react";
-import { Box, Typography, Grid, TextField, Button } from "@mui/material";
+import { Box, Typography, Grid, TextField } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
+
+import PublishedWithChangesIcon from "@mui/icons-material/PublishedWithChanges";
+import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
+import { updateItem } from "../../../Axios/items";
 
 export default function EditItem({
   id = 100,
   name = "some name",
   price = "100",
+  _id = "some string",
 }) {
+  // loading while updating
+  const [loading, setLoading] = useState(false);
+
   //  the form section data for each input
-  const [ItemName, setItemName] = useState("This is normal Text");
-  const [ItemId, setItemId] = useState("This is normal Text of ID");
-  const [ItemPrice, setItemPrice] = useState(0);
+  const [ItemName, setItemName] = useState(name);
+  const [ItemId, setItemId] = useState(id);
+  const [ItemPrice, setItemPrice] = useState(price);
+
+  const updateData = async () => {
+    setLoading(true);
+
+    const item = {
+      _id: _id,
+      code: ItemId,
+      price: ItemPrice,
+      name: ItemName,
+    };
+    const res = await updateItem(item);
+    setLoading(false);
+  };
 
   return (
     <>
       <Box>
-        <Typography variant="h5">Add items to store</Typography>
+        <AppRegistrationIcon fontSize="large" color="warning" />
+        <Typography variant="h5">
+          {" "}
+          <b>Updating item :</b> {ItemName}
+        </Typography>
         <br />
-        <Grid container spacing={1}>
+        <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
               variant="outlined"
@@ -31,7 +57,7 @@ export default function EditItem({
           </Grid>
           <Grid item xs={12}>
             <TextField
-              value={id}
+              defaultValue={id}
               onChange={(e) => {
                 setItemId(e.target.value);
               }}
@@ -45,17 +71,23 @@ export default function EditItem({
               onChange={(e) => {
                 setItemPrice(e.target.value);
               }}
-              value="100"
               fullWidth="100%"
-              type="text"
+              type="number"
               label="price"
               defaultValue={price}
             />
           </Grid>
           <Grid item xs={12}>
-            <Button size="large" variant="contained" sx={{ mt: 3, mb: 2 }}>
+            <LoadingButton
+              color="warning"
+              loading={loading}
+              variant="contained"
+              endIcon={<PublishedWithChangesIcon />}
+              loadingPosition="end"
+              onClick={updateData}
+            >
               Update Item
-            </Button>
+            </LoadingButton>
           </Grid>
         </Grid>
       </Box>

@@ -100,7 +100,6 @@ export default function CreateItem({ fetchData }) {
           </Grid>
           <Grid item xs={12}>
             <TextField
-              defaultValue="100"
               onChange={(e) => {
                 setPrice(e.target.value);
               }}
