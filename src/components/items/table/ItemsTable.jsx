@@ -1,4 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
+
+// all the material ui components
 import { Button, TextField, Box, IconButton, Input } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { styled } from "@mui/material/styles";
@@ -12,11 +14,19 @@ import Paper from "@mui/material/Paper";
 
 import { SearchRounded, EditRounded } from "@mui/icons-material";
 import { DeleteOutlineRounded } from "@mui/icons-material";
+//  moment js
 import moment from "moment";
+
 import { useSelector, useDispatch } from "react-redux";
 import { selectedItems } from "../../../features/items/itemsSlice"; //redux action to slecte items
 
+// axios
 import { removeProduct } from "../../../Axios/items";
+
+// importing snackbar
+import Notify from "../../snackbar/Notify";
+
+// styling for the table
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -38,22 +48,34 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
+// main function
+
 export default function ItemsTables({ items, handleOpenUpdate }) {
-  const [data, setData] = useState([]);
-  const [search, setSearch] = useState([]);
-  const [edit, setEdit] = useState(false);
-  let rerenderElemet = true;
+  const [data, setData] = useState([]); // this is for displaying data in tables
+  const [search, setSearch] = useState([]); //for live search
+  // const [edit, setEdit] = useState(false);  was supposed to be inline edit
+
+  //  call the snackbar
+  const [callSnackbar, setcallSnackbar] = useState(false);
+  const handleClickSnackbar = () => {
+    setcallSnackbar(true);
+  };
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") return;
+    setcallSnackbar(false);
+  };
+  // snackbar code ends here
 
   // set up the redux dispatch
   const dispatch = useDispatch();
   // delete item function
   const removeItem = async (id) => {
-    // does a calll from api
+    // does a call from api
     await removeProduct({ _id: id });
-    console.log("product was removed");
+    handleClickSnackbar();
   };
 
-  // handleEdit function
+  // handleEdit function send data to redux for handeling edit of that item
   const handleEdit = (_id, itemCode, name, price) => {
     // get clicked item details  }
     const selectedItem = {
@@ -71,7 +93,7 @@ export default function ItemsTables({ items, handleOpenUpdate }) {
   useEffect(() => {
     console.log(items);
     setData(items);
-  }, [rerenderElemet]);
+  }, []);
   if (data.length == 0) return "loading data";
 
   return (
@@ -114,9 +136,9 @@ export default function ItemsTables({ items, handleOpenUpdate }) {
               <StyledTableCell>ITEM ID</StyledTableCell>
 
               <StyledTableCell>ITEM NAME</StyledTableCell>
-              <StyledTableCell align="right">PRICE</StyledTableCell>
-              <StyledTableCell align="right">DATE ADDED</StyledTableCell>
-              <StyledTableCell align="right">Actions</StyledTableCell>
+              <StyledTableCell align="left">PRICE</StyledTableCell>
+              <StyledTableCell align="left">DATE ADDED</StyledTableCell>
+              <StyledTableCell align="left">Actions</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -141,19 +163,19 @@ export default function ItemsTables({ items, handleOpenUpdate }) {
                       {/* {!edit?} */}
                       {row.itemCode}
                     </StyledTableCell>
-                    <StyledTableCell align="right">
+                    <StyledTableCell align="left">
                       {row.itemName}
                     </StyledTableCell>
-                    <StyledTableCell align="right">
+                    <StyledTableCell align="left">
                       <b>Rs {row.price}</b>
                     </StyledTableCell>
-                    <StyledTableCell align="right">
+                    <StyledTableCell align="left">
                       {moment(
                         row.createdOn.split("T")[0].split("-").join(""),
                         "YYYYMMDD"
                       ).fromNow()}
                     </StyledTableCell>
-                    <StyledTableCell align="right">
+                    <StyledTableCell align="left">
                       <IconButton
                         color="primary"
                         aria-label="add an alarm"
@@ -183,6 +205,17 @@ export default function ItemsTables({ items, handleOpenUpdate }) {
           </TableBody>
         </Table>
       </TableContainer>
+      {callSnackbar ? (
+        <Notify
+          handleClick={handleClickSnackbar}
+          handleClose={handleCloseSnackbar}
+          open={callSnackbar}
+          type="warning"
+          message="Item was deleted successfully"
+        />
+      ) : (
+        <> </>
+      )}
     </>
   );
 }

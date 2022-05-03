@@ -6,6 +6,8 @@ import PublishedWithChangesIcon from "@mui/icons-material/PublishedWithChanges";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import { updateItem } from "../../../Axios/items";
 
+// import the snackbar
+import Notify from "../../snackbar/Notify";
 export default function EditItem({
   id = 100,
   name = "some name",
@@ -20,6 +22,17 @@ export default function EditItem({
   const [ItemId, setItemId] = useState(id);
   const [ItemPrice, setItemPrice] = useState(price);
 
+  //  call the snackbar
+  const [callSnackbar, setcallSnackbar] = useState(false);
+  const handleClickSnackbar = () => {
+    setcallSnackbar(true);
+  };
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") return;
+    setcallSnackbar(false);
+  };
+  // snackbar code ends here
+
   const updateData = async () => {
     setLoading(true);
 
@@ -31,6 +44,7 @@ export default function EditItem({
     };
     const res = await updateItem(item);
     setLoading(false);
+    handleClickSnackbar();
   };
 
   return (
@@ -91,6 +105,17 @@ export default function EditItem({
           </Grid>
         </Grid>
       </Box>
+      {callSnackbar ? (
+        <Notify
+          handleClick={handleClickSnackbar}
+          handleClose={handleCloseSnackbar}
+          open={callSnackbar}
+          type="success"
+          message="Item was updated successfully"
+        />
+      ) : (
+        <> </>
+      )}
     </>
   );
 }
