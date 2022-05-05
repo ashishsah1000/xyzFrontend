@@ -50,6 +50,9 @@ export const updateItem = async (itemObject) => {
     itemName: itemObject.name,
     itemCode: itemObject.code,
     price: itemObject.price,
+    stock: itemObject.stock,
+    description: itemObject.description,
+    category: itemObject.category,
   };
   console.log("🚀 ~ file: items.js ~ line 54 ~ updateItem ~ data", data);
   await axios({

@@ -61,6 +61,15 @@ export default function Inventory() {
   const storeEditItemPrice = useSelector(
     (state) => state.items.selected.payload.price
   );
+  const storeEditItemStock = useSelector(
+    (state) => state.items.selected.payload.stock
+  );
+  const storeEditItemDescription = useSelector(
+    (state) => state.items.selected.payload.description
+  );
+  const storeEditItemCategory = useSelector(
+    (state) => state.items.selected.payload.category
+  );
 
   // get the data in this function
   const bgStyle = {
@@ -143,6 +152,7 @@ export default function Inventory() {
                   key={tableKey}
                   items={items}
                   handleOpenUpdate={handleOpenUpdate}
+                  fetchData={fetchData}
                 />
               )}
             </div>
@@ -179,6 +189,10 @@ export default function Inventory() {
               id={storeEditItemCode}
               price={storeEditItemPrice}
               _id={storeEditId}
+              fetchData={fetchData}
+              stock={storeEditItemStock}
+              description={storeEditItemDescription}
+              category={storeEditItemCategory}
             />
           </Box>
         </Modal>

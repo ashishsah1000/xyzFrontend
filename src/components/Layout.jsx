@@ -22,6 +22,7 @@ import HistoryEduIcon from "@mui/icons-material/HistoryEdu";
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import AppSettingsAltIcon from "@mui/icons-material/AppSettingsAlt";
+import { LogoutTwoTone } from "@mui/icons-material";
 
 const drawerWidth = 240;
 
@@ -126,6 +127,15 @@ export default function Layout({ midElement = <h1>this is middle props</h1> }) {
           <Typography variant="h6" noWrap component="div">
             XYZ Startup
           </Typography>
+          <Link to="/logout">
+            <IconButton
+              justifyContent="felx-end"
+              color="error"
+              endIcon={<LogoutTwoTone />}
+            >
+              <LogoutTwoTone />
+            </IconButton>
+          </Link>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>

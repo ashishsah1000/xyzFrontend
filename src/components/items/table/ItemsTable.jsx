@@ -50,7 +50,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 // main function
 
-export default function ItemsTables({ items, handleOpenUpdate }) {
+export default function ItemsTables({ items, handleOpenUpdate, fetchData }) {
   const [data, setData] = useState([]); // this is for displaying data in tables
   const [search, setSearch] = useState([]); //for live search
   // const [edit, setEdit] = useState(false);  was supposed to be inline edit
@@ -76,13 +76,24 @@ export default function ItemsTables({ items, handleOpenUpdate }) {
   };
 
   // handleEdit function send data to redux for handeling edit of that item
-  const handleEdit = (_id, itemCode, name, price) => {
+  const handleEdit = (
+    _id,
+    itemCode,
+    name,
+    price,
+    stock,
+    description,
+    category
+  ) => {
     // get clicked item details  }
     const selectedItem = {
       _id: _id,
       code: itemCode,
       name: name,
       price: price,
+      stock: stock,
+      description: description,
+      category: category,
     };
     dispatch(selectedItems(selectedItem));
     handleOpenUpdate();
@@ -134,11 +145,14 @@ export default function ItemsTables({ items, handleOpenUpdate }) {
             <TableRow>
               <StyledTableCell>S.N O</StyledTableCell>
               <StyledTableCell>ITEM ID</StyledTableCell>
-
               <StyledTableCell>ITEM NAME</StyledTableCell>
+              <StyledTableCell>STOCK</StyledTableCell>
+
               <StyledTableCell align="left">PRICE</StyledTableCell>
+              <StyledTableCell align="left">CATEGORY</StyledTableCell>
+
               <StyledTableCell align="left">DATE ADDED</StyledTableCell>
-              <StyledTableCell align="left">Actions</StyledTableCell>
+              <StyledTableCell align="left">ACTIONS</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -166,8 +180,12 @@ export default function ItemsTables({ items, handleOpenUpdate }) {
                     <StyledTableCell align="left">
                       {row.itemName}
                     </StyledTableCell>
+                    <StyledTableCell align="left">{row.stock}</StyledTableCell>
                     <StyledTableCell align="left">
                       <b>Rs {row.price}</b>
+                    </StyledTableCell>
+                    <StyledTableCell align="left">
+                      <i> {row.category}</i>
                     </StyledTableCell>
                     <StyledTableCell align="left">
                       {moment(
@@ -184,7 +202,10 @@ export default function ItemsTables({ items, handleOpenUpdate }) {
                             row._id,
                             row.itemCode,
                             row.itemName,
-                            row.price
+                            row.price,
+                            row.stock,
+                            row.description,
+                            row.category
                           )
                         }
                       >

@@ -10,6 +10,9 @@ export const itemsSlice = createSlice({
         code: 0,
         name: "some name of item",
         price: 100,
+        stock: 0,
+        description: "",
+        category: "",
       },
     }, // selected is for item that is being selected to edit
   },
