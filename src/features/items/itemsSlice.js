@@ -15,6 +15,7 @@ export const itemsSlice = createSlice({
         category: "",
       },
     }, // selected is for item that is being selected to edit
+    billing: [],
   },
   reducers: {
     storeItems: (state, items) => {
@@ -26,8 +27,13 @@ export const itemsSlice = createSlice({
     selectedItems: (state, item) => {
       state.selected = item;
     },
+    billingItems: (state, item) => {
+      if (state.billing.length == 0) state.billing = item.payload;
+      else state.billing.push(item.payload[0]);
+    },
   },
 });
-export const { storeItems, deleteItems, selectedItems } = itemsSlice.actions;
+export const { storeItems, deleteItems, selectedItems, billingItems } =
+  itemsSlice.actions;
 
 export default itemsSlice.reducer;

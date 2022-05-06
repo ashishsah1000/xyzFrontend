@@ -130,12 +130,13 @@ export default function ItemsTables({ items, handleOpenUpdate, fetchData }) {
       <br />
       <TableContainer
         component={Paper}
-        style={{ height: "80vh", overflow: "hidden", overflowY: "scroll" }}
+        style={{ height: "70%", overflow: "hidden", overflowY: "scroll" }}
       >
         <Table
           sx={{
             width: "100%",
-            maxHeight: "80vh",
+            height: "50vh",
+            maxHeight: "70vh",
             overflow: "hidden",
             overflowY: "scroll",
           }}

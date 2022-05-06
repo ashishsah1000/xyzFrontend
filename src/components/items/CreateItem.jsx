@@ -136,6 +136,7 @@ export default function CreateItem({ fetchData }) {
             <>
               <Grid item xs={12}>
                 <TextField
+                  size="small"
                   onChange={(e) => {
                     setItemId(e.target.value);
                   }}
@@ -146,6 +147,7 @@ export default function CreateItem({ fetchData }) {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  size="small"
                   variant="outlined"
                   onChange={(e) => {
                     setStock(e.target.value);
@@ -160,6 +162,7 @@ export default function CreateItem({ fetchData }) {
             <>
               <Grid item xs={12}>
                 <TextField
+                  size="small"
                   onChange={(e) => {
                     setItemId(e.target.value);
                   }}
@@ -170,6 +173,7 @@ export default function CreateItem({ fetchData }) {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  size="small"
                   variant="outlined"
                   onChange={(e) => {
                     setItemName(e.target.value);
@@ -181,6 +185,7 @@ export default function CreateItem({ fetchData }) {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  size="small"
                   onChange={(e) => {
                     setPrice(e.target.value);
                   }}
@@ -191,6 +196,7 @@ export default function CreateItem({ fetchData }) {
               </Grid>
               <Grid item xs={6}>
                 <TextField
+                  size="small"
                   variant="outlined"
                   onChange={(e) => {
                     setStock(e.target.value);
@@ -202,6 +208,7 @@ export default function CreateItem({ fetchData }) {
               </Grid>
               <Grid item xs={6}>
                 <TextField
+                  size="small"
                   variant="outlined"
                   id="outlined-select"
                   select
@@ -221,6 +228,7 @@ export default function CreateItem({ fetchData }) {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  size="small"
                   variant="outlined"
                   onChange={(e) => {
                     setDescription(e.target.value);
@@ -242,7 +250,15 @@ export default function CreateItem({ fetchData }) {
               Add Item
             </Button>
           </Grid>
-          <Grid items xs={12}>
+          <Grid
+            items
+            xs={12}
+            style={{
+              maxHeight: "200px",
+              overflow: "hidden",
+              overflowY: "scroll",
+            }}
+          >
             {existingItemSwitch ? (
               <BasicTable
                 items={itemsData.filter((val) =>

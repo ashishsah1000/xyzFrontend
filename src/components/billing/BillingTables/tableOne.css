@@ -1,0 +1,25 @@
+/* td,
+th {
+    padding: 4px 10px;
+}
+
+th {
+    background: black;
+    color: white;
+}
+
+table,
+td,
+th {
+    border: 1px dashed black;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+tr {
+    background: white;
+}
+
+tr:nth-child(odd) {
+    background: ghostwhite;
+} */

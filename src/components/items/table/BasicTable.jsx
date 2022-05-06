@@ -7,10 +7,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import moment from "moment";
 
 export default function BasicTable({ items }) {
   return (
-    <TableContainer component={Paper} style={{ maxHeight: "300px" }}>
+    <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
@@ -35,7 +36,12 @@ export default function BasicTable({ items }) {
               <TableCell>{row.itemName}</TableCell>
               <TableCell>{row.stock}</TableCell>
               <TableCell>{row.price}</TableCell>
-              <TableCell>{row.createdOn}</TableCell>
+              <TableCell>
+                {moment(
+                  row.createdOn.split("T")[0].split("-").join(""),
+                  "YYYYMMDD"
+                ).fromNow()}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
