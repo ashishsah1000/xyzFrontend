@@ -21,17 +21,30 @@ export default function BtableOne({ items = [] }) {
             return (
               <tr>
                 <td align="center">{i + 1}</td>
-                <td align="center">{x.itemCode}</td>
-                <td align="center">{x.itemName} </td>
-                <td align="center">{x.quantity}</td>
-                <td align="center">{x.price}</td>
+                <td align="center">{x?.itemCode}</td>
+                <td align="center">{x?.itemName} </td>
+                <td align="center">{x?.quantity}</td>
+                <td align="center">{x?.price}</td>
                 <td align="center">
-                  {parseInt(x.price) * parseInt(x.quantity)}
+                  {parseInt(x?.price) * parseInt(x?.quantity)}
                 </td>
               </tr>
             );
           })}
         </tbody>
+        <tfoot
+          style={{
+            border: "2px solid black",
+          }}
+        >
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Total</td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   );

@@ -28,8 +28,8 @@ export const itemsSlice = createSlice({
       state.selected = item;
     },
     billingItems: (state, item) => {
-      if (state.billing.length == 0) state.billing = item.payload;
-      else state.billing.push(item.payload[0]);
+      if (state.billing.length == 0) state.billing = [item.payload];
+      else state.billing.push(item.payload);
     },
   },
 });

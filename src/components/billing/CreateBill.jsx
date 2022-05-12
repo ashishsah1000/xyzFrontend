@@ -121,27 +121,11 @@ export default function CreateBill() {
               <Grid item xs={12} alignItems="flex-end">
                 <Button
                   onClick={() => {
-                    dispatch(
-                      billingItems(
-                        store
-                          ?.filter((val) =>
-                            itemId.length == 0
-                              ? val
-                              : val.itemCode.includes(itemId)
-                          )
-                          .map((val) => {
-                            if (val.itemCode === itemId)
-                              return {
-                                itemCode: val.itemCode,
-                                itemName: val.itemName,
-                                price: val.price,
-                                quantity: quantity,
-                                discount: discount,
-                                sellingPrice: sellingPrice,
-                              };
-                          })
-                      )
-                    );
+                    const data = store?.find((x) => x.itemCode == itemId);
+                    if (data) {
+                      console.log(store);
+                      dispatch(billingItems(data));
+                    } else console.log("no data found");
                   }}
                   size="large"
                   variant="contained"
